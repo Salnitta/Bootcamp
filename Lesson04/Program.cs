@@ -54,24 +54,63 @@ MIN = 15
 
 
 // Сортировка выбором строк
-string[] array = new string[5];
-for (int i = 0; i < 5; i++)
+// string[] array = new string[5];
+// for (int i = 0; i < 5; i++)
+// {
+//     array[i] = Console.ReadLine();
+// }
+// Console.Write("Начальный массив: [" + string.Join(", ", array) + "]");
+// Console.WriteLine();
+// for (int i = 0; i < 4; i++)
+// {
+//     int MinIndex = i;
+//     for (int j = i + 1; j < 5; j++)
+//     {
+//         if (array[j].Length < array[MinIndex].Length)
+//             MinIndex = j; 
+//     }
+//     string temp;
+//     temp = array[MinIndex];
+//     array[MinIndex] = array[i];
+//     array[i] = temp;
+// }
+// Console.WriteLine("Конечный массив: [" + string.Join(", ", array) + "]");
+
+// ДЗ "Сдвиг вправо"
+// Дана последовательность из N целых чисел и число K. Необходимо сдвинуть всю последовательность 
+// (сдвиг - циклический) на |K| элементов вправо, если K – положительное и влево, если отрицательное.
+// Пример 1:
+// INPUT: 5 3 7 4 6, 3
+// OUTPUT: 7 4 6 5 3
+// Пример 2:
+// INPUT: 5 3 7 4 6, -3
+// OUTPUT: 4 6 5 3 7
+
+int[] input = { 5, 3, 7, 4, 6 };
+int n = 5;
+Console.WriteLine("Введите k: ");
+int k = int.Parse(Console.ReadLine());
+while (Math.Abs(k) > n)
 {
-    array[i] = Console.ReadLine();
+    k = k % n;
 }
-Console.Write("Начальный массив: [" + string.Join(", ", array) + "]");
-Console.WriteLine();
-for (int i = 0; i < 4; i++)
+Console.WriteLine(k);
+Console.WriteLine("INPUT: [" + string.Join(", ", input) + "]");
+int[] output = new int[n];
+for (int i = 0; i < n; i++)
 {
-    int MinIndex = i;
-    for (int j = i + 1; j < 5; j++)
+    if (k >= 0)
     {
-        if (array[j].Length < array[MinIndex].Length)
-            MinIndex = j; 
+        if (i + k < n) 
+            output[i + k] = input[i];
+        else output[i + k - n] = input[i];
     }
-    string temp;
-    temp = array[MinIndex];
-    array[MinIndex] = array[i];
-    array[i] = temp;
+    else
+    {
+        if (i + k >= 0) 
+            output[i + k] = input[i];
+        else output[i + k + n] = input[i];
+    }
 }
-Console.WriteLine("Конечный массив: [" + string.Join(", ", array) + "]");
+
+Console.WriteLine("OUTPUT: [" + string.Join(", ", output) + "]");
